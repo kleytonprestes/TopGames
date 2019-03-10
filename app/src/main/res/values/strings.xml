@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TopGames</string>
+    <string name="details">Detalhes</string>
+    <string name="box_text">Capa da caixa: </string>
+</resources>
