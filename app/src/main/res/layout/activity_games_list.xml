@@ -7,16 +7,36 @@
         android:layout_height="match_parent"
         tools:context=".features.gameslist.view.GamesListActivity">
 
-
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_games_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/item_margin"
-            tools:listitem="@layout/item_game"
-
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
     >
 
-    </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_games_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/item_margin"
+                tools:listitem="@layout/item_game"
+
+        />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+    />
 
 </android.support.constraint.ConstraintLayout>

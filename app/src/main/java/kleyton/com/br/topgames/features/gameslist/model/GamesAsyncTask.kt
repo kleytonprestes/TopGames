@@ -5,12 +5,14 @@ import kleyton.com.br.topgames.model.Game
 import kleyton.com.br.topgames.persistence.AppDataBase
 import java.util.*
 
-class GamesAsyncTask(internal var appDataBase: AppDataBase?, var gamesDaoAsyncTaskc: GamesDaoAsyncTaskc) :
+class GamesAsyncTask(internal var appDataBase: AppDataBase?,
+                     var gamesDaoAsyncTaskc: GamesDaoAsyncTaskc,
+                     var limit: Int) :
     AsyncTask<Void, Void, ArrayList<Game>>() {
 
     override fun doInBackground(vararg voids: Void): ArrayList<Game> {
 
-        return appDataBase?.gameDao()?.getAllGames as ArrayList<Game>
+        return appDataBase?.gameDao()?.getAllGames(limit) as ArrayList<Game>
     }
 
     override fun onPostExecute(propertyArrayList: ArrayList<Game>) {

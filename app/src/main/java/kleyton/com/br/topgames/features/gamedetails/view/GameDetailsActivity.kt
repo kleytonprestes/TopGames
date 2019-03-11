@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import kleyton.com.br.topgames.CustomApplication
 import kleyton.com.br.topgames.R
+import kleyton.com.br.topgames.features.gamedetails.viewmodel.GameDetailsViewModel
 import kleyton.com.br.topgames.features.gameslist.view.GamesListActivity.Companion.INTENT_EXTRA_GAME
 import kleyton.com.br.topgames.model.Game
 import kotlinx.android.synthetic.main.content_detail.*
@@ -13,6 +14,8 @@ import kotlinx.android.synthetic.main.game_details.*
 class GameDetailsActivity : AppCompatActivity() {
 
     private lateinit var game: Game
+
+    private lateinit var model :GameDetailsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,14 @@ class GameDetailsActivity : AppCompatActivity() {
         setupDetails()
     }
 
+    private fun configToolbar() {
+        model = GameDetailsViewModel()
+
+        toolbar.title = resources.getString(R.string.details)
+        setSupportActionBar(toolbar)
+        model.configToolbar(supportActionBar)
+    }
+
     fun setupDetails() {
         game = intent.extras.getParcelable(INTENT_EXTRA_GAME)
 
@@ -31,14 +42,6 @@ class GameDetailsActivity : AppCompatActivity() {
         CustomApplication().loadImage(this, game.box?.large, image_box)
     }
 
-    private fun configToolbar() {
-
-        toolbar.title = resources.getString(R.string.details)
-        setSupportActionBar(toolbar)
-        if (supportActionBar != null) {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        }
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         onBackPressed()

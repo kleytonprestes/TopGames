@@ -1,22 +1,46 @@
 package kleyton.com.br.topgames.features.gameslist.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
+import android.content.Context
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import kleyton.com.br.topgames.CustomApplication
 import kleyton.com.br.topgames.features.gameslist.model.GamesListModel
+import kleyton.com.br.topgames.features.gameslist.model.PaginationScrollListener
 import kleyton.com.br.topgames.model.Game
-import kleyton.com.br.topgames.model.GameTop
 
-class GamesListViewModel(customApplication: CustomApplication) {
-
+class GamesListViewModel(customApplication: CustomApplication,
+                         context: Context) {
     var gamesList = MutableLiveData<List<Game>>()
-    private var gamesListModel = GamesListModel(gamesList, customApplication.appDataBase)
+
+    var showError = MutableLiveData<String>()
+
+
+    private var sizeList = 10
+    private var isLastPage = false
+
+    private var gamesListModel = GamesListModel(gamesList, customApplication.appDataBase,
+        showError, context)
 
     fun getListValue(isNetworkAvailable: Boolean) {
         gamesListModel.getAllGames(isNetworkAvailable)
     }
 
-    fun saveGames(gamesList: ArrayList<Game>?) {
-        gamesListModel.insertGames(gamesList)
-    }
+    fun add(recyclerView: RecyclerView, layoutManager: GridLayoutManager) {
+        recyclerView.addOnScrollListener(object :PaginationScrollListener(layoutManager) {
+            override fun loadMoreItems() {
+                sizeList += CustomApplication.PAGE_SIZE
+                gamesListModel.callDao(sizeList)
 
+                if(sizeList >= 100) {
+                    isLastPage = true
+                }
+            }
+
+            override fun isLastPage(): Boolean {
+                 return isLastPage
+            }
+
+        })
+    }
 }

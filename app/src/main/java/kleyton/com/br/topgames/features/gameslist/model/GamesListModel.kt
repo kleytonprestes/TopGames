@@ -1,23 +1,29 @@
 package kleyton.com.br.topgames.features.gameslist.model
 
 import android.arch.lifecycle.MutableLiveData
+import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
+import kleyton.com.br.topgames.CustomApplication
+import kleyton.com.br.topgames.CustomApplication.Companion.PAGE_SIZE
+import kleyton.com.br.topgames.R
 import kleyton.com.br.topgames.api.RetrofitInitializer
 import kleyton.com.br.topgames.model.Game
 import kleyton.com.br.topgames.model.GameResponse
-import kleyton.com.br.topgames.model.GameTop
 import kleyton.com.br.topgames.persistence.AppDataBase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class GamesListModel(var gamesListLiveData: MutableLiveData<List<Game>>,
-                     var appDataBase: AppDataBase?) : GamesDaoAsyncTaskc{
+                     var appDataBase: AppDataBase?,
+                     var showError: MutableLiveData<String>,
+                     var context: Context) : GamesDaoAsyncTaskc {
 
 
     fun callApi() {
-        val call = RetrofitInitializer().retrofitService().getTopGames(limit = 10)
+        val call = RetrofitInitializer().retrofitService().getTopGames(limit = 100)
         val gameList: ArrayList<Game> = ArrayList()
 
         call.enqueue(object: Callback<GameResponse> {
@@ -27,7 +33,9 @@ class GamesListModel(var gamesListLiveData: MutableLiveData<List<Game>>,
                     it.top?.forEach {
                         it.game?.let { game -> gameList.add(game) }
                     }
-                    gamesListLiveData.value = gameList
+
+                    insertGames(gameList)
+
                 }
             }
 
@@ -38,15 +46,20 @@ class GamesListModel(var gamesListLiveData: MutableLiveData<List<Game>>,
 
     }
 
-    fun callDao() {
-        GamesAsyncTask(appDataBase, this).execute()
+    fun callDao(limit: Int) {
+        GamesAsyncTask(appDataBase, this, limit).execute()
     }
 
     fun getAllGames(isNetworkAvailable: Boolean){
         if (isNetworkAvailable) {
             callApi()
         } else {
-            callDao()
+
+            showError.value = context.resources.getString(R.string.error_connection)
+
+            callDao(PAGE_SIZE)
+
+
         }
     }
 
@@ -62,6 +75,9 @@ class GamesListModel(var gamesListLiveData: MutableLiveData<List<Game>>,
                     appDataBase?.gameDao()?.insertGame(game)
                 }
             }
+
+            callDao(CustomApplication.PAGE_SIZE)
+
         }.execute()
     }
 

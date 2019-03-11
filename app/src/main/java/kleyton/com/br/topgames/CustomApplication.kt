@@ -11,6 +11,11 @@ import kleyton.com.br.topgames.persistence.AppDataBase
 
 class CustomApplication : Application() {
 
+    companion object {
+
+        const val PAGE_SIZE = 10
+    }
+
     var appDataBase: AppDataBase? = null
 
     fun loadImage(context: Context, path: String?, imageView: ImageView) {

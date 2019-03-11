@@ -42,4 +42,9 @@ class GamesListAdapter(val topGamesList: ArrayList<Game>?,
             listener.onClick(gameItem)
         }
     }
+
+    fun addItems(items: ArrayList<Game>) {
+        topGamesList?.addAll(items)
+        notifyDataSetChanged()
+    }
 }

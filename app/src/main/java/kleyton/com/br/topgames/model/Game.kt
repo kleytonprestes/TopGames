@@ -24,7 +24,7 @@ class Game() : Parcelable {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "top_game_id")
-    var id: Int = 0
+    var _id: Int = 0
 
     constructor(parcel: Parcel) : this() {
         giantbomb_id = parcel.readInt()
@@ -32,7 +32,7 @@ class Game() : Parcelable {
         name = parcel.readString()
         logo = parcel.readParcelable(GameLogo::class.java.classLoader)
         box = parcel.readParcelable(GameBox::class.java.classLoader)
-        id = parcel.readInt()
+        _id = parcel.readInt()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -41,7 +41,7 @@ class Game() : Parcelable {
         parcel.writeString(name)
         parcel.writeParcelable(logo, flags)
         parcel.writeParcelable(box, flags)
-        parcel.writeInt(id)
+        parcel.writeInt(_id)
     }
 
     override fun describeContents(): Int {

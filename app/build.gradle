@@ -10,7 +10,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "kleyton.com.br.topgames"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -33,12 +33,17 @@ dependencies {
     implementation "com.android.support:design:$supportVersion"
     implementation "com.android.support:recyclerview-v7:$supportVersion"
     implementation "com.android.support:cardview-v7:$supportVersion"
+
+    //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation "android.arch.lifecycle:livedata:1.1.1"
+
+    //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation "android.arch.persistence.room:runtime:$archRoomVersion"
 
+    //room
+    implementation "android.arch.lifecycle:livedata:1.1.1"
+    implementation "android.arch.persistence.room:runtime:$archRoomVersion"
     kapt "android.arch.persistence.room:compiler:$archRoomVersion"
 
     testImplementation 'junit:junit:4.12'
