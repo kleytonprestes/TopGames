@@ -9,7 +9,6 @@ import android.support.design.widget.Snackbar
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import kleyton.com.br.topgames.CustomApplication
@@ -58,23 +57,26 @@ class GamesListActivity : AppCompatActivity(), GameItemClickListener, SwipeRefre
     fun setupRecycler() {
 
         manager = GridLayoutManager(this, SPAN_VAL)
-        adapter = GamesListAdapter(gamesList, this, this)
+        adapter = GamesListAdapter(this, this)
 
         rv_games_list.layoutManager = manager
         rv_games_list.adapter = adapter
         rv_games_list.setHasFixedSize(true)
 
-        gamesListModel.add(rv_games_list, manager)
+        gamesListModel.recyclerListener(rv_games_list, manager)
 
         progress.visibility = GONE
     }
 
     fun initObersvables (){
+
+        setupRecycler()
+
         gamesListModel.gamesList.observe(this, Observer {
             it?.let { it ->
                 gamesList = it as ArrayList<Game>?
-                setupRecycler()
                 swipe_refresh.isRefreshing = false
+                adapter.addItems(gamesList)
             }
         })
 

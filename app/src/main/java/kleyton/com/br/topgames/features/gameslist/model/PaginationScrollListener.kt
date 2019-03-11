@@ -7,8 +7,8 @@ import kleyton.com.br.topgames.CustomApplication.Companion.PAGE_SIZE
 abstract class PaginationScrollListener(var layoutManager: GridLayoutManager) : RecyclerView.OnScrollListener() {
 
     override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-        val visibleItemCount = layoutManager.getChildCount()
-        val totalItemCount = layoutManager.getItemCount()
+        val visibleItemCount = layoutManager.childCount
+        val totalItemCount = layoutManager.itemCount
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
         if (!isLastPage()) {

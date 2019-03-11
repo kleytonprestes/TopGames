@@ -26,7 +26,7 @@ class GamesListViewModel(customApplication: CustomApplication,
         gamesListModel.getAllGames(isNetworkAvailable)
     }
 
-    fun add(recyclerView: RecyclerView, layoutManager: GridLayoutManager) {
+    fun recyclerListener(recyclerView: RecyclerView, layoutManager: GridLayoutManager) {
         recyclerView.addOnScrollListener(object :PaginationScrollListener(layoutManager) {
             override fun loadMoreItems() {
                 sizeList += CustomApplication.PAGE_SIZE

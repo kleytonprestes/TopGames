@@ -4,21 +4,17 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import com.squareup.picasso.Callback
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
 import kleyton.com.br.topgames.CustomApplication
 import kleyton.com.br.topgames.R
 import kleyton.com.br.topgames.features.gameslist.model.GameItemClickListener
 import kleyton.com.br.topgames.features.gameslist.model.GameItemViewHolder
 import kleyton.com.br.topgames.model.Game
-import kleyton.com.br.topgames.model.GameTop
 
-class GamesListAdapter(val topGamesList: ArrayList<Game>?,
-                       val context: Context,
-                       val listener: GameItemClickListener) : RecyclerView.Adapter<GameItemViewHolder>() {
+class GamesListAdapter(
+    val context: Context,
+    private val listener: GameItemClickListener) : RecyclerView.Adapter<GameItemViewHolder>() {
+
+    private var topGamesList = ArrayList<Game>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameItemViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_game, parent, false)
@@ -27,24 +23,25 @@ class GamesListAdapter(val topGamesList: ArrayList<Game>?,
     }
 
     override fun getItemCount(): Int {
-        return topGamesList?.size ?: 0
+        return topGamesList.size
     }
 
     override fun onBindViewHolder(holder: GameItemViewHolder, position: Int) {
-        val gameItem = topGamesList?.get(position)
+        val gameItem = topGamesList.get(position)
 
-        holder.gameName.text = gameItem?.name
+        holder.gameName.text = gameItem.name
 
         CustomApplication().loadImage(
-            context, gameItem?.logo?.large, holder.gameTemplate)
+            context, gameItem.logo?.large, holder.gameTemplate)
 
         holder.itemView.setOnClickListener{
             listener.onClick(gameItem)
         }
     }
 
-    fun addItems(items: ArrayList<Game>) {
-        topGamesList?.addAll(items)
+    fun addItems(items: ArrayList<Game>?) {
+
+        items?.let { topGamesList = it }
         notifyDataSetChanged()
     }
 }
