@@ -6,9 +6,7 @@ class GameDetailsViewModel  {
 
     fun configToolbar(supportActionBar: ActionBar?) {
 
-        if (supportActionBar != null) {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 }
