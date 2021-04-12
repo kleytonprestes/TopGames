@@ -1,13 +1,13 @@
-package kleyton.com.br.topgames.features.gameslist.view
+package kleyton.com.br.topgames.ui.gameslist.view
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import kleyton.com.br.topgames.CustomApplication
 import kleyton.com.br.topgames.R
-import kleyton.com.br.topgames.features.gameslist.model.GameItemClickListener
-import kleyton.com.br.topgames.features.gameslist.model.GameItemViewHolder
+import kleyton.com.br.topgames.ui.gameslist.model.GameItemClickListener
+import kleyton.com.br.topgames.ui.gameslist.model.GameItemViewHolder
 import kleyton.com.br.topgames.model.Game
 
 class GamesListAdapter(
@@ -32,7 +32,7 @@ class GamesListAdapter(
         holder.gameName.text = gameItem.name
 
         CustomApplication().loadImage(
-            context, gameItem.logo?.large, holder.gameTemplate)
+            gameItem.logo?.large, holder.gameTemplate)
 
         holder.itemView.setOnClickListener{
             listener.onClick(gameItem)

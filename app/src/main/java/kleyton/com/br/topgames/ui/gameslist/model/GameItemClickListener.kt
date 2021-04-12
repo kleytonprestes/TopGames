@@ -1,4 +1,4 @@
-package kleyton.com.br.topgames.features.gameslist.model
+package kleyton.com.br.topgames.ui.gameslist.model
 
 import kleyton.com.br.topgames.model.Game
 

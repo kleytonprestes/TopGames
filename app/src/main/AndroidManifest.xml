@@ -13,7 +13,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="kleyton.com.br.topgames.features.gameslist.view.GamesListActivity"
+        <activity android:name="kleyton.com.br.topgames.ui.gameslist.view.GamesListActivity"
                   android:screenOrientation="portrait"
         >
             <intent-filter>
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".features.gamedetails.view.GameDetailsActivity"
+        <activity android:name=".ui.gamedetails.view.GameDetailsActivity"
                   android:screenOrientation="portrait"
                   android:label="@string/details"
                   android:theme="@style/Theme.Design.Light.NoActionBar"

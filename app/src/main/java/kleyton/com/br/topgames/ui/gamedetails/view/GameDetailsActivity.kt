@@ -1,19 +1,20 @@
-package kleyton.com.br.topgames.features.gamedetails.view
+package kleyton.com.br.topgames.ui.gamedetails.view
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import kleyton.com.br.topgames.CustomApplication
 import kleyton.com.br.topgames.R
-import kleyton.com.br.topgames.features.gamedetails.viewmodel.GameDetailsViewModel
-import kleyton.com.br.topgames.features.gameslist.view.GamesListActivity.Companion.INTENT_EXTRA_GAME
+import kleyton.com.br.topgames.ui.gamedetails.viewmodel.GameDetailsViewModel
+import kleyton.com.br.topgames.ui.gameslist.view.GamesListActivity.Companion.INTENT_EXTRA_GAME
 import kleyton.com.br.topgames.model.Game
 import kotlinx.android.synthetic.main.content_detail.*
 import kotlinx.android.synthetic.main.game_details.*
 
 class GameDetailsActivity : AppCompatActivity() {
 
-    private lateinit var game: Game
+    private  var game: Game? = null
 
     private lateinit var model :GameDetailsViewModel
 
@@ -34,12 +35,15 @@ class GameDetailsActivity : AppCompatActivity() {
         model.configToolbar(supportActionBar)
     }
 
-    fun setupDetails() {
-        game = intent.extras.getParcelable(INTENT_EXTRA_GAME)
+    private fun setupDetails() {
+        game = intent.extras?.getParcelable(INTENT_EXTRA_GAME)
 
-        CustomApplication().loadImage(this, game.logo?.large, background_image)
-        game_details_name.text = game.name
-        CustomApplication().loadImage(this, game.box?.large, image_box)
+        game?.let {
+
+            CustomApplication().loadImage(it.logo?.large, backgroundImage)
+            game_details_name.text = it.name
+            CustomApplication().loadImage(it.box?.large, image_box)
+        }
     }
 
 

@@ -1,9 +1,10 @@
-package kleyton.com.br.topgames.features.gameslist.model
+package kleyton.com.br.topgames.ui.gameslist.model
 
-import android.support.v7.widget.RecyclerView
+
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import kleyton.com.br.topgames.R
 
 class GameItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

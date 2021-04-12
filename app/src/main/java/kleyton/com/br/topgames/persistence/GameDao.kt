@@ -1,12 +1,12 @@
 package kleyton.com.br.topgames.persistence
 
-import android.arch.persistence.room.*
+
+import androidx.room.*
 import kleyton.com.br.topgames.model.Game
 
 
 @Dao
 interface GameDao {
-
 
     @Query("SELECT * FROM game LIMIT :limitGames")
     fun getAllGames(limitGames: Int): List<Game>

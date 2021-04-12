@@ -1,6 +1,6 @@
-package kleyton.com.br.topgames.features.gamedetails.viewmodel
+package kleyton.com.br.topgames.ui.gamedetails.viewmodel
 
-import android.support.v7.app.ActionBar
+import androidx.appcompat.app.ActionBar
 
 class GameDetailsViewModel  {
 

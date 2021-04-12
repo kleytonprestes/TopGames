@@ -1,0 +1,27 @@
+android {
+
+    flavorDimensions "normal"
+
+    productFlavors {
+        mock {
+            versionNameSuffix "-MOCK"
+            dimension "normal"
+            buildConfigField "String", "BASE_URL" , "\"https://api.twitch.tv/kraken/games/\""
+            buildConfigField "Boolean", "IS_MOCK" , "true"
+        }
+
+        dev {
+            versionNameSuffix "-DEV"
+            dimension "normal"
+            buildConfigField "String", "BASE_URL" , "\"https://api.twitch.tv/kraken/games/\""
+            buildConfigField "Boolean", "IS_MOCK" , "false"
+        }
+
+        prd {
+            versionNameSuffix "-PRD"
+            dimension "normal"
+            buildConfigField "String", "BASE_URL" , "\"https://api.twitch.tv/kraken/games/\""
+            buildConfigField "Boolean", "IS_MOCK" , "false"
+        }
+    }
+}
